@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+  - 2.2
+before_script:
+  - gem install awesome_bot
+  - npm install
+script:
+- awesome_bot README.md --allow-dupe --allow-redirect --allow-ssl
+- awesome_bot README_*.md --allow-dupe --allow-redirect --allow-ssl
+- npm run toc
+- npm run diff
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
+    
